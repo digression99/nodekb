@@ -89,6 +89,18 @@ sudo apt-get install -y mongodb-org
 sudo service mongod start
 stop --> sudo service mongod stop
 
+* 서버를 백그라운드에서 돌리기
+* npm install -g pm2
+* pm2 start app.js
+* stop --> pm2 stop app.js
+*
+* http 의 default port : 80 -> 그냥 아이피 어드레스만 입력해도 디폴트로 80으로 되게 만들기.
+* sudo apt-get install libcap2-bin
+* sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
+* sudo nano app.js -> port를 80으로 수정.
+
+
+
 
  */
 
