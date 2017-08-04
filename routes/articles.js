@@ -59,21 +59,25 @@ module.exports = function(Article) {
 
 // get single article
     router.get('/edit/:id', ensureAuthenticated, function(req, res) {
-        Article.findById(req.params.id, function(err, article) {
-            if (article.author !== req.user._id) {
-                req.flash('danger', 'Not Authrized');
-                res.redirect('/user/login');
-            }
-            else {
+        // Article.findById(req.params.id, function(err, article) {
+        //     if (article.author !== req.user._id) {
+        //         req.flash('danger', 'Not Authrized');
+        //         res.redirect('/user/login');
+        //     }
+        //     else {
+        //
+        //     }
+        // });
 
-            }
-        });
-
         Article.findById(req.params.id, function(err, article) {
-            if (article.author !== req.user._id)
+            console.log('article.findById.');
+            console.log('article.author : ', article.author, " type is : ", typeof(article.author));
+            console.log('req.user._id : ', req.user._id.toString(), " type is : ", typeof(req.user._id.toString()));
+
+            if (article.author !== req.user._id.toString())
             {
-                req.flash('danger', 'Not Authrized');
-                res.redirect('/user/login');
+                req.flash('danger', 'Not Authorized');
+                res.redirect('/');
             }
             else {
                 res.render('edit_article', {
@@ -109,11 +113,10 @@ module.exports = function(Article) {
             res.status(500).send();
         }
 
-
         var query = {_id : req.params.id};
 
         Article.findById(req.params.id, function(err, article) {
-            if (article.author !== req.user._id)
+            if (article.author !== req.user._id.toString())
             {
                 res.status(500).send();
             } else
