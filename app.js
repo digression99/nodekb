@@ -75,6 +75,9 @@ https://stackoverflow.com/questions/32603818/order-of-router-precedence-in-expre
 digital ocean 으로 배포
 droplets -> vps
 
+우분투 접속
+~/.ssh  ssh -i id_rsa root@107.170.242.216
+
 ubuntu에 nodejs설치
 
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -98,8 +101,27 @@ stop --> sudo service mongod stop
 * sudo apt-get install libcap2-bin
 * sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
 * sudo nano app.js -> port를 80으로 수정.
+*
+* libcap2-bin
+* POSIX 1003.1e capabilities (utilities)
+Libcap implements the user-space interfaces to the POSIX 1003.1e capabilities
+available in Linux kernels. These capabilities are a partitioning of the all
+powerful root privilege into a set of distinct privileges.
+.
+This package contains additional utilities.
 
+- 24시간 후에 다시 한 번 dns server에서 시도해보자.
 
+------
+
+배포판은 우분투에 루트로 접속해도 안되고 ssh 키를 주어야 하고 등
+여러 보안 이슈가 필요하다.
+
+//////// 에러 목록
+* 아티클을 업데이트하면 로그아웃이 된다.. 왜 그럴까.
+* -> 로그아웃이 되는 게 아니라 author부분이 바뀌어서 그렇다. 수정완료.(edit_article.pug에서 author수정을 지움)
+*
+* * add article 에서 뒤로가기 문제?
 
 
  */

@@ -50,8 +50,7 @@ module.exports = function(Article) {
             User.findById(article.author, function(err, user) {
                 res.render('article', {
                     article : article,
-                    author : user.name,
-                    userid : user._id
+                    author : user.name
                 });
             })
         });
@@ -82,29 +81,42 @@ module.exports = function(Article) {
             else {
                 res.render('edit_article', {
                     title : 'Edit Article',
-                    article : article
+                    article : article,
+                    author : req.user.name
                 });
             }
         });
     });
 
     router.post('/edit/:id', function(req, res) {
-        var article = {};
-        article.title = req.body.title;
-        article.author = req.body.author;
-        article.body = req.body.body;
+        var newArticle = {};
+        newArticle.title = req.body.title;
+        newArticle.body = req.body.body;
 
         var query = {_id:req.params.id};
 
-        Article.update(query, article, function(err) {
-            if (err) {
+        // 두번 쿼리하는 데 쿼리를 줄일 순 없을까.
+        Article.findById(query, function(err, article)
+        {
+            if (err)
+            {
                 console.log(err);
+                throw err;
             }
-            else {
-                req.flash('success','Article Updated.');
-                res.redirect('/article/' + req.params.id);
+            else
+            {
+                newArticle.author = article.author;
+                Article.update(query, newArticle, function(err) {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    } else {
+                        req.flash('success','Article Updated.');
+                        res.redirect('/article/' + req.params.id);
+                    }
+                });
             }
-        })
+        });
     });
 
     router.delete('/:id', function(req, res) {
