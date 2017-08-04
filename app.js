@@ -240,6 +240,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.listen(3001, function() {
-    console.log('server running on port 3001...');
+app.listen(80, function() {
+    console.log('server running on port 80...');
 });
